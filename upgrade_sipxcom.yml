@@ -1,0 +1,19 @@
+---
+- hosts: all
+  tasks:
+
+    - name: Copy sipxcom.repo in /etc/yum.repos.d. Overwrite with latest repo file
+      copy: src=sipxcom.repo dest=/etc/yum.repos.d/sipxcom.repo
+    
+    
+- hosts: secondaries
+  tasks:
+    - name: Upgrading secondaries first
+      script: upgrade.sh    
+
+- hosts: uc1
+  tasks:
+    - name: Upgrade primary now
+      script: upgrade.sh  
+        
+
